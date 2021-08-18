@@ -1,6 +1,7 @@
 <template>
   <div class="header">Weather Forecast</div>
-  <city-select />
+  <city-select v-model="selectedCity" />
+  {{ selectedCity }}
 </template>
 
 <script>
@@ -10,6 +11,11 @@ export default {
   name: "App",
   components: {
     CitySelect,
+  },
+  data() {
+    return {
+      selectedCity: "",
+    };
   },
 };
 </script>
