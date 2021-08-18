@@ -1,5 +1,7 @@
 # weatherforecast
 
+A quick and simple UI that fetches weather data from an endpoint and displays it in a webpage.
+
 ## Project setup
 ```
 yarn install
