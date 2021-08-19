@@ -1,20 +1,24 @@
 <template>
   <div class="header">Weather Forecast</div>
   <city-select v-model="selectedCity" @change="getWeather" />
+  <weather :weatherData="weather" />
 </template>
 
 <script>
 import axios from "axios";
 import CitySelect from "@/components/CitySelect";
+import Weather from "@/components/Weather";
 
 export default {
   name: "App",
   components: {
     CitySelect,
+    Weather,
   },
   data() {
     return {
       selectedCity: "",
+      units: "metric",
       weather: {},
     };
   },
@@ -24,10 +28,10 @@ export default {
       this.weather = {};
 
       try {
-        this.weather = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?id=${this.selectedCity}&appid=${process.env.VUE_APP_APPID}`
+        const res = await axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?id=${this.selectedCity}&units=${this.units}&appid=${process.env.VUE_APP_APPID}`
         );
-        console.log(this.weather.data);
+        this.weather = res.data;
       } catch (error) {
         console.error(error);
       }
