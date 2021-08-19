@@ -1,4 +1,4 @@
-# weatherforecast
+# Weather Forecast
 
 A quick and simple UI that fetches weather data from an endpoint and displays it in a webpage.
 
@@ -6,6 +6,8 @@ A quick and simple UI that fetches weather data from an endpoint and displays it
 ```
 yarn install
 ```
+
+Copy `.env` to `.env.local`, and the enter in your appid
 
 ### Compiles and hot-reloads for development
 ```
