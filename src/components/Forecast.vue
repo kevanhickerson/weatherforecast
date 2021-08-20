@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="forecast in forecastData.list" :key="forecast.dt">
+        <tr v-for="forecast in forecastPage" :key="forecast.dt">
           <td>{{ getFormattedDate(forecast.dt) }}</td>
           <td>{{ forecast.main.temp }} °C</td>
           <td>{{ forecast.main.temp_min }} °C</td>
@@ -22,6 +22,14 @@
         </tr>
       </tbody>
     </table>
+    <button
+      v-for="i in numberOfPages"
+      :key="i"
+      @click="currentPage = i - 1"
+      :disabled="currentPage + 1 == i"
+    >
+      {{ i }}
+    </button>
   </div>
 </template>
 
@@ -38,15 +46,35 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      currentPage: 0,
+    };
+  },
   computed: {
     hasData() {
       return Object.keys(this.forecastData).length > 0;
+    },
+    numberOfPages() {
+      let num = this.forecastData?.list.length ?? 0;
+      return num / 10;
+    },
+    forecastPage() {
+      return this.forecastData.list.slice(
+        this.currentPage * 10,
+        (this.currentPage + 1) * 10
+      );
     },
   },
   methods: {
     getFormattedDate(timestamp) {
       let dt = new Date(timestamp * 1000);
       return format(dt, "MMM d ha");
+    },
+  },
+  watch: {
+    forecastData: function () {
+      this.currentPage = 0;
     },
   },
 };
