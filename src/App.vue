@@ -85,15 +85,33 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  background-color: #fafafa;
+}
+
+button {
+  background-color: lightgrey;
+  border-radius: 4px;
+  border-width: 1px;
+  padding: 4px 16px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+</style>
 
+<style scoped lang="scss">
 .header {
   font-size: 3rem;
   font-weight: 500;
+}
+
+button {
+  margin-bottom: 16px;
+  margin-top: 16px;
 }
 </style>

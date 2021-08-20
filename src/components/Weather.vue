@@ -28,4 +28,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.weather__description {
+  margin-bottom: 16px;
+}
+</style>

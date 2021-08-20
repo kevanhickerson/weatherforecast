@@ -53,4 +53,16 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+div {
+  margin-bottom: 16px;
+}
+
+select {
+  background-color: transparent;
+  border: none;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  width: 120px;
+}
+</style>

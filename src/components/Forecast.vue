@@ -80,4 +80,31 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+button {
+  margin-right: 8px;
+  margin-top: 8px;
+}
+
+table {
+  border-collapse: collapse;
+  background-color: white;
+}
+
+th {
+  font-weight: normal;
+  text-align: left;
+}
+
+th,
+td {
+  width: 120px;
+  padding: 10px;
+}
+
+tr {
+  border-style: solid;
+  border-width: 1px;
+  padding: 0;
+}
+</style>
