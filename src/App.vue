@@ -1,7 +1,14 @@
 <template>
   <div class="header">Weather Forecast</div>
   <city-select v-model="selectedCity" @change="getWeather" />
-  <weather :weatherData="weather" @seeforecast="getForecast" />
+  <weather :weatherData="weather" />
+  <button
+    v-if="hasWeatherData"
+    @click="toggleForecast"
+    :disabled="loadingForecast"
+  >
+    {{ buttonText }}
+  </button>
   <forecast :forecastData="forecast" />
 </template>
 
@@ -21,10 +28,25 @@ export default {
   data() {
     return {
       forecast: {},
+      loadingForecast: false,
       selectedCity: "",
       units: "metric",
       weather: {},
     };
+  },
+  computed: {
+    hasWeatherData() {
+      return Object.keys(this.weather).length > 0;
+    },
+    hasForecastData() {
+      return Object.keys(this.forecast).length > 0;
+    },
+    buttonText() {
+      if (this.hasForecastData) {
+        return "Close";
+      }
+      return "See Forecast";
+    },
   },
   methods: {
     async getWeather() {
@@ -41,14 +63,21 @@ export default {
         console.error(error);
       }
     },
-    async getForecast() {
-      try {
-        const res = await axios.get(
-          `http://api.openweathermap.org/data/2.5/forecast?id=${this.selectedCity}&units=${this.units}&appid=${process.env.VUE_APP_APPID}`
-        );
-        this.forecast = res.data;
-      } catch (error) {
-        console.error(error);
+    async toggleForecast() {
+      if (this.hasForecastData) {
+        this.forecast = {};
+      } else {
+        try {
+          this.loadingForecast = true;
+          const res = await axios.get(
+            `http://api.openweathermap.org/data/2.5/forecast?id=${this.selectedCity}&units=${this.units}&appid=${process.env.VUE_APP_APPID}`
+          );
+          this.forecast = res.data;
+        } catch (error) {
+          console.error(error);
+        } finally {
+          this.loadingForecast = false;
+        }
       }
     },
   },

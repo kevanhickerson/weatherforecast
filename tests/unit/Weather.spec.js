@@ -50,20 +50,5 @@ describe("Weather.vue", () => {
     expect(wrapper.find(".weather .weather__wind").text()).toBe(
       "Wind 1.63 m/s"
     );
-    expect(wrapper.find(".weather .weather__see-forecast").text()).toBe(
-      "See Forecast"
-    );
-  });
-
-  it("should emit an event when 'See Forecast' is clicked", async () => {
-    const wrapper = mount(Weather, {
-      props: {
-        weatherData: validWeatherData,
-      },
-    });
-
-    wrapper.find(".weather .weather__see-forecast").trigger("click");
-
-    expect(wrapper.emitted()).toHaveProperty("seeforecast");
   });
 });

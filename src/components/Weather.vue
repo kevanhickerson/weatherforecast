@@ -6,9 +6,6 @@
     </div>
     <div class="weather__temperature">{{ weatherData.main.temp }} °C</div>
     <div class="weather__wind">Wind {{ weatherData.wind.speed }} m/s</div>
-    <button class="weather__see-forecast" @click="$emit('seeforecast')">
-      See Forecast
-    </button>
   </div>
 </template>
 
