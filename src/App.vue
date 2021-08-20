@@ -1,22 +1,26 @@
 <template>
   <div class="header">Weather Forecast</div>
   <city-select v-model="selectedCity" @change="getWeather" />
-  <weather :weatherData="weather" />
+  <weather :weatherData="weather" @seeforecast="getForecast" />
+  <forecast :forecastData="forecast" />
 </template>
 
 <script>
 import axios from "axios";
 import CitySelect from "@/components/CitySelect";
+import Forecast from "@/components/Forecast";
 import Weather from "@/components/Weather";
 
 export default {
   name: "App",
   components: {
     CitySelect,
+    Forecast,
     Weather,
   },
   data() {
     return {
+      forecast: {},
       selectedCity: "",
       units: "metric",
       weather: {},
@@ -25,6 +29,7 @@ export default {
   methods: {
     async getWeather() {
       // Reset the weather object to be empty while we try to load new data
+      this.forecast = {};
       this.weather = {};
 
       try {
@@ -32,6 +37,16 @@ export default {
           `http://api.openweathermap.org/data/2.5/weather?id=${this.selectedCity}&units=${this.units}&appid=${process.env.VUE_APP_APPID}`
         );
         this.weather = res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getForecast() {
+      try {
+        const res = await axios.get(
+          `http://api.openweathermap.org/data/2.5/forecast?id=${this.selectedCity}&units=${this.units}&appid=${process.env.VUE_APP_APPID}`
+        );
+        this.forecast = res.data;
       } catch (error) {
         console.error(error);
       }

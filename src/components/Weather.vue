@@ -1,5 +1,15 @@
 <template>
-  <div v-if="hasData">Weather Data</div>
+  <div v-if="hasData" class="weather">
+    <div class="weather__main">{{ weatherData.weather[0].main }}</div>
+    <div class="weather__description">
+      {{ weatherData.weather[0].description }}
+    </div>
+    <div class="weather__temperature">{{ weatherData.main.temp }} °C</div>
+    <div class="weather__wind">Wind {{ weatherData.wind.speed }} m/s</div>
+    <button class="weather__see-forecast" @click="$emit('seeforecast')">
+      See Forecast
+    </button>
+  </div>
 </template>
 
 <script>
